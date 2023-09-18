@@ -57,6 +57,7 @@ if __name__ == "__main__":
     models.plot_combined_corrections()
     
     plt.show()
+    
 # Multi-Fidelity Modeling Toy Problem 2: Comprehensive Correction
 
 ## Overview
