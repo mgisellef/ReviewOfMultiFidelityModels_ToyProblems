@@ -57,6 +57,8 @@ if __name__ == "__main__":
     models.plot_combined_corrections()
     
     plt.show()
+```
+
     
 # Multi-Fidelity Modeling Toy Problem 2: Comprehensive Correction
 
@@ -126,7 +128,7 @@ x_sampHF = np.array([0.1, 0.5, 0.9])
 sensitivity = SensitivityAnalysis()
 sensitivity.plot_sensitivity(x, x_sampHF, 'A', np.linspace(-1.3, 2.7, 10), 'A_Sensitivity')
 ```
-# # Multi-Fidelity Modeling Toy Problem 3: MultiFidelityModel Class Documentation
+# Multi-Fidelity Modeling Toy Problem 3: MultiFidelityModel Class Documentation
 
 ## Overview
 
@@ -219,9 +221,108 @@ if __name__ == "__main__":
     model.fit_RF()
     model.plot()
 ```
+# Multi-Fidelity Modeling Toy Problem 4: Multi-Fidelity Analysis Using Co-Kriging
+
+### Introduction
+
+The `MultiFidelityAnalysis` class is an encapsulation for performing multi-fidelity analysis via Co-Kriging (CoKG). The class provides methods to fit a CoKG model, make predictions, and visualize the Low-Fidelity (LF) and High-Fidelity (HF) models alongside CoKG predictions.
+
+### Requirements
+
+- Python 3.6 or higher
+- NumPy
+- Matplotlib
+- OpenMDAO
+
+### Installation
+
+```bash
+pip install numpy matplotlib openmdao
+```
+
+### Class Methods and Attributes
+
+#### `__init__(self, lb=0, ub=1)`
+
+Initializes the `MultiFidelityAnalysis` object. 
+
+**Parameters:**
+
+- `lb`: Lower bound of the variable space (default is 0).
+- `ub`: Upper bound of the variable space (default is 1).
+
+#### `func_HF(x)`
+
+High-Fidelity (HF) model as a function of `x`.
+
+**Returns:**
+
+- HF model response.
+
+#### `func_LF(x)`
+
+Low-Fidelity (LF) model as a function of `x`.
+
+**Returns:**
+
+- LF model response.
+
+#### `fit_coKG(self, Xe, Xc)`
+
+Fits the CoKG model with HF and LF data.
+
+**Parameters:**
+
+- `Xe`: Points where the HF model is evaluated.
+- `Xc`: Points where the LF model is evaluated.
+
+#### `predict_coKG()`
+
+Predicts the CoKG model response over the generated points.
+
+**Returns:**
+
+- Tuple containing predicted response and standard deviation.
+
+#### `plot_models(self, fHF, fLF, Xe, Xc, f_pred)`
+
+Plots the LF, HF, and CoKG models with their sampling points.
+
+**Parameters:**
+
+- `fHF`, `fLF`: Responses from HF and LF models.
+- `Xe`, `Xc`: Sampling points for HF and LF models.
+- `f_pred`: CoKG predictions.
+
+---
+
+### Usage Example
+
+```python
+MFA = MultiFidelityAnalysis()
+Xe = np.array([[0.2], [0.4], [0.85]])
+Xc = np.vstack((np.array([[0.1], [0.25], [0.3], [0.5], [0.6], [0.7], [0.8], [0.9]]), Xe))
+MFA.fit_coKG(Xe, Xc)
+f_pred = MFA.predict_coKG()
+MFA.plot_models(fHF, fLF, Xe, Xc, f_pred)
+```
+
+---
+
+For further inquiries or contributions, feel free to reach out.
+
+### Author
+
+M. Giselle Fernández-Giselle, fernandez48@llnl.gov
+
+### License
+
+This project is licensed under the MIT License.
+
+---
 
 This example initializes a `MultiFidelityModel` with 200 LFM samples and 20 HFM samples. Subsequently, it generates data, fits the SVR and RF models, and plots the outcomes.
-# Multi-Fidelity Modeling Toy Problem 4: Multi-Fidelity Forrester Function 
+# Multi-Fidelity Modeling Toy Problem 5: Multi-Fidelity Forrester Function 
 
 This Python class encapsulates the functionalities related to the multi-fidelity Forrester function. It provides methods for function evaluation, plotting, and model training.
 
